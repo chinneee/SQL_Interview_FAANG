@@ -1,3 +1,12 @@
+-- Generate an inventory age report which would show the distribution of remaining inventory across the length of time the inventory has been sitting at the warehouse.
+-- Classify the inventory on hand across the below 4 buckets to denote the time the inventory has been lying the warehouse.
+    /*
+    0-90 days old 
+    91-180 days old
+    181-270 days old
+    271 – 365 days old
+    */
+
 WITH wh AS (
     SELECT * 
     FROM warehouse
