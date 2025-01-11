@@ -8,7 +8,7 @@ WITH cte_rank AS (
 cte_present AS (
     SELECT 
         *,
-        ROW_NUMBER() OVER (PARTITION BY employee ORDER BY dates) AS t,
+        ROW_NUMBER() OVER (PARTITION BY employee ORDER BY dates) AS rownum,
         rnk - ROW_NUMBER() OVER (PARTITION BY employee ORDER BY dates) AS flag
     FROM cte_rank
     WHERE [status] = 'PRESENT'
@@ -21,6 +21,7 @@ cte_absent AS (
     FROM cte_rank
     WHERE [status] = 'ABSENT'
 )
+
 SELECT 
     employee,
     FIRST_VALUE(dates) OVER (PARTITION BY employee, flag ORDER BY employee, dates) AS from_date,
@@ -70,3 +71,4 @@ GROUP BY
 ORDER BY 
     employee, 
     FROM_DATE;
+
